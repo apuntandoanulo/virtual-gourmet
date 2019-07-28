@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	
+	<persistence-unit name="virtual-gourmet-pu">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<jta-data-source>java:comp/env/jdbc/virtual-gourmet-ds</jta-data-source>
+				
+		<properties>
+			<!-- SQL Server configuration 
+			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
+			<property name="hibernate.default_schema" value="dbo"/> --> 
+			 
+			<!-- Oracle Server configuration  
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+			<property name="hibernate.default_schema" value="sis"/>
+			-->
+			
+			<!-- Postgresql configuration --> 
+			<!-- -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.default_schema" value="public"/>
+						
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.use_sql_comments" value="false" />
+			<property name="hibernate.transaction.jta.platform" value="org.hibernate.engine.transaction.jta.platform.internal.SunOneJtaPlatform" />
+		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="virtual-gourmet-pu2">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:comp/env/jdbc/virtual-gourmet-ds2</jta-data-source>
+				
+		<properties>
+			<!-- SQL Server configuration --> 
+			<property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
+			<property name="hibernate.default_schema" value="dbo"/> 
+			 
+			<!-- Oracle Server configuration  
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+			<property name="hibernate.default_schema" value="sis"/>
+			-->
+			
+			<!-- Postgresql configuration --> 
+			<!-- 
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.default_schema" value="public"/>
+					-->	
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.use_sql_comments" value="false" />
+			<property name="hibernate.transaction.jta.platform" value="org.hibernate.engine.transaction.jta.platform.internal.SunOneJtaPlatform" />
+		</properties>
+	</persistence-unit>
+	
+</persistence>
