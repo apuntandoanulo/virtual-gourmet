@@ -12,6 +12,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.acme.entities.Mesero;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,12 +23,16 @@ import com.google.gson.GsonBuilder;
 @Stateless
 public class ServicioRest {
 
+	private static final Logger logger = LogManager.getLogger(ServicioRest.class);
+	
 	@PersistenceContext(unitName = "virtual-gourmet-pu2")
 	private EntityManager em2;
 	
 	@GET
 	@Produces({"application/json"})
 	public Response obtenerListaMeseros() {
+		logger.debug("Ingresando al metodo obtenerListaMeseros");
+		
 		Query queryJPQL = em2.createQuery("SELECT ms FROM Mesero ms ORDER BY ms.nombre");
 		
 		List<Mesero> meseros = queryJPQL.getResultList();
@@ -35,6 +42,8 @@ public class ServicioRest {
 		Gson gson = gsonBuilder.create();
 		
 		String json = gson.toJson(meseros);
+		
+		logger.debug("Se encontraron {} registros", meseros.size());
 		
 		return Response.ok(json, MediaType.APPLICATION_JSON).build();
 	}
