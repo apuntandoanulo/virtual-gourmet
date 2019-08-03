@@ -26,12 +26,11 @@
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
 			<property name="hibernate.use_sql_comments" value="false" />
-			<property name="hibernate.transaction.jta.platform" value="org.hibernate.engine.transaction.jta.platform.internal.SunOneJtaPlatform" />
 		</properties>
 	</persistence-unit>
 	
 	<persistence-unit name="virtual-gourmet-pu2">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<jta-data-source>java:comp/env/jdbc/virtual-gourmet-ds2</jta-data-source>
 				
 		<properties>
@@ -53,7 +52,6 @@
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
 			<property name="hibernate.use_sql_comments" value="false" />
-			<property name="hibernate.transaction.jta.platform" value="org.hibernate.engine.transaction.jta.platform.internal.SunOneJtaPlatform" />
 		</properties>
 	</persistence-unit>
 	
