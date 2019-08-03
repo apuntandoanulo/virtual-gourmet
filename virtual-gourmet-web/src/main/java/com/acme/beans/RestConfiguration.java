@@ -13,7 +13,7 @@ import javax.ws.rs.core.Application;
 /**
  * Defines the general configuration for the services
  * 
- * @author jhsuarez
+ * @author jahenao
  *
  */
 @ApplicationPath("/virtual-gourmet-rest")

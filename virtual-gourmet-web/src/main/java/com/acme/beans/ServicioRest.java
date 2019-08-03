@@ -43,7 +43,7 @@ public class ServicioRest {
 		
 		String json = gson.toJson(meseros);
 		
-		logger.debug("Se encontraron {} registros", meseros.size());
+		logger.info("Se encontraron {} registros", meseros.size());
 		
 		return Response.ok(json, MediaType.APPLICATION_JSON).build();
 	}
