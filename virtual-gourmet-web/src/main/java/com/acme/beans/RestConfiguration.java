@@ -16,7 +16,7 @@ import javax.ws.rs.core.Application;
  * @author jhsuarez
  *
  */
-@ApplicationPath("/virtual-gourmet")
+@ApplicationPath("/virtual-gourmet-rest")
 public class RestConfiguration extends Application
 {
 
