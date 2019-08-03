@@ -39,6 +39,58 @@
 					</archive>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+				<!-- Run as mvn tomcat7:redeploy -->
+				<groupId>org.apache.tomcat.maven</groupId>  
+ 				<artifactId>tomcat7-maven-plugin</artifactId>  
+ 				<version>2.2</version>
+ 				
+ 				<configuration>
+ 					<url>http://localhost/manager/text</url>
+                 	<server>tomee</server> <!-- Configure it in MVN_HOME/conf/settings.xml and TOMEE_HOME/conf/tomcat-users.xml -->
+                 	<path>/${project.build.finalName}</path>
+                 	<update>true</update>
+ 				</configuration>
+ 				
+ 				<!-- 
+ 					MVN_HOME/conf/settings.xml
+ 					
+ 					<servers>
+ 						...
+ 						
+ 						<server>
+					      <id>tomee</id>
+					      <username>tomcat</username>
+					      <password>t0mc4t</password>
+					    </server>
+ 						
+ 						...
+ 					</servers>
+ 					
+ 					TOMEE_HOME/conf/tomcat-users.xml
+ 					
+ 					<tomcat-users>
+						<role rolename="manager-gui"/>
+						<role rolename="manager-script"/>
+						<role rolename="manager-jmx"/>
+						<role rolename="manager-status"/>
+						<role rolename="admin-gui"/>
+						<role rolename="admin-script"/>
+						<user username="tomcat" password="t0mc4t" roles="manager-gui, manager-script, manager-jmx, manager-status, admin-gui, admin-script" />
+					</tomcat-users>
+ 					
+ 				 -->
+ 				 <executions>
+ 				 	<execution>
+ 				 		<id>deploy-on-tomee</id>
+ 				 		<phase>package</phase>
+ 				 		<goals>
+ 				 			<goal>redeploy</goal>
+ 				 		</goals>
+ 				 	</execution>
+ 				 </executions>
+			</plugin>
 		</plugins>
 	</build>
 	
