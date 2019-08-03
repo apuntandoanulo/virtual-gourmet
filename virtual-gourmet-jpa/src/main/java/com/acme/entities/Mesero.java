@@ -13,9 +13,16 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name = "VG_MESERO")
+@XmlType(name="Mesero", propOrder={"id", "nombre", "fechaCreacion"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Mesero implements Serializable {
 
 	/**
@@ -26,15 +33,18 @@ public class Mesero implements Serializable {
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@XmlAttribute(name = "uniqueID")
 	private Long id;
 	
 	@NotNull
 	@Column(name = "NAME")
 	@Size(max = 80)
+	@XmlElement(name="nombre")
 	private String nombre;
 	
 	@Column(name = "CREATION_DATE")
 	@Temporal(TemporalType.TIMESTAMP)
+	@XmlElement(name="fecha")
 	private Date fechaCreacion;
 
 	public Long getId() {

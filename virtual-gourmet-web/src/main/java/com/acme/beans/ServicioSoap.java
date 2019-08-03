@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.jws.WebMethod;
+import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +20,7 @@ public class ServicioSoap {
 	private EntityManager em2;
 	
 	@WebMethod(operationName = "listaMeseros")
+	@WebResult(name = "mesero")
 	public List<Mesero> obtenerListaMeseros() {
 		Query queryJPQL = em2.createQuery("SELECT ms FROM Mesero ms ORDER BY ms.nombre");
 		
