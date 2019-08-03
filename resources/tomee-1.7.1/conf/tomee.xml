@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee>
+  <!-- see http://tomee.apache.org/containers-and-resources.html -->
+
+  <!-- activate next line to be able to deploy applications in apps -->
+  <!-- <Deployments dir="apps" /> -->
+  
+  <Container id="TomEEStatelessContainer" type="STATELESS">
+		maxSize=1000
+		PoolSize=500
+	</Container>
+	
+	<Container id="TomEEStatefulContainer" type="STATEFUL">
+	    accessTimeout = 180 seconds
+	    bulkPassivate = 100
+	    cache = org.apache.openejb.core.stateful.SimpleCache
+	    capacity = 1000
+	    frequency = 60
+	    passivator = org.apache.openejb.core.stateful.SimplePassivater
+	    timeOut = 200
+	</Container>
+  	
+  	<TransactionManager type="TransactionManager">
+		defaultTransactionTimeout=10 minutes
+	</TransactionManager>
+	
+	<Resource id="virtual-gourmet-ds2" type="DataSource">
+		JtaManaged=true
+		JdbcDriver=com.microsoft.sqlserver.jdbc.SQLServerDriver
+		JdbcUrl=jdbc:sqlserver://127.0.0.1;databaseName=virtual-gourmet
+		UserName=virtual-gourmet
+		Password=virtual-gourmet
+		InitialSize=10
+		MaxActive=50
+		MaxIdle=15
+		MinIdle=10
+		MaxWait=30000
+		ValidationQuery=select 1
+		TestOnBorrow=true
+	</Resource>
+		
+	<Resource id="virtual-gourmet-ds" type="DataSource">
+		JtaManaged=true
+		JdbcDriver=org.postgresql.Driver
+		JdbcUrl=jdbc:postgresql://127.0.0.1:5432/virtual-gourmet
+		UserName=virtual-gourmet
+		Password=virtual-gourmet
+		InitialSize=10
+		MaxActive=50
+		MaxIdle=15
+		MinIdle=10
+		MaxWait=30000
+		ValidationQuery=select 1
+		TestOnBorrow=true
+	</Resource>
+</tomee>
