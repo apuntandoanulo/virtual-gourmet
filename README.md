@@ -29,6 +29,7 @@ El proyecto de Virtual Gourmet es una solucion Java, basada en JEE6. Usa Apache 
 
 * Alguna utilidad para descomprimir archivos (7-Zip, WinZip)
 * Algun programa para edicion de archivos (Notepad++, Atom)
+* Base de datos Postgresql (En los ejemplos se usa la version 11)
 
 <br/>
 
