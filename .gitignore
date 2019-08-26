@@ -33,5 +33,5 @@ arboard-client.iml
 *.iml
 
 #virtual-gourmet
-virtual-gourmet-jpa/target
-virtual-gourmet-web/target
+java_src/virtual-gourmet-jpa/target
+java_src/virtual-gourmet-web/target
