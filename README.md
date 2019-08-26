@@ -41,7 +41,7 @@ La versión ofrecida por Oracle la podemos utilizar para desarrollo, pero usted 
 Una vez instalado asegurese de configurar la variable de entorno **JAVA_HOME** apuntando a su directorio de instalacion. Al ejecutar el comando Java en la linea de comandos, debería mostrar algo como:
 
 <p align="center">
-<img src="https://github.com/apuntandoanulo/virtual-gourmet/blob/master/docs/img/java-version.png?raw=true" width="500" />
+<img src="https://github.com/apuntandoanulo/virtual-gourmet/blob/master/resources/docs/img/java-version.png?raw=true" width="500" />
 </p>
 
 ### 3. Configurando el servidor de aplicaciones Apache TomEE Server
@@ -73,7 +73,7 @@ set CATALINA_OPTS=-Xms1024m -Xmx1536m
 * Finalmente, inicie el servidor ejecutando _TOMEE_HOME/bin/startup.bat_. Abra un navegador web e ingrese la dirección http://localhost. Deberá ver la pagina de inicio de TomEE.
 
 <p align="center">
-<img src="https://github.com/apuntandoanulo/virtual-gourmet/blob/master/docs/img/tomee-startup.png?raw=true" width="500" />
+<img src="https://github.com/apuntandoanulo/virtual-gourmet/blob/master/resources/docs/img/tomee-startup.png?raw=true" width="700" />
 </p>
 
 <br/>
@@ -105,9 +105,9 @@ Una vez el proceso de instalación termine, reinicie el Eclipse.
 * Busque su MAVEN_HOME. El campo “installation name” es automaticamente llenado cuando el directorio es escogido. De clic en 'Finish’
 
 <p align="center">
-<img src="https://github.com/apuntandoanulo/virtual-gourmet/blob/master/docs/img/mvn_conf.png?raw=true" width="500" />
+<img src="https://github.com/apuntandoanulo/virtual-gourmet/blob/master/resources/docs/img/mvn_conf.png?raw=true" width="500" />
 </p>
 
-* Finalmente, esocja en Eclipse que la nueva instalación configurada.
+* Finalmente, seleccione en Eclipse la nueva instalación de Maven.
 
 <br/>
