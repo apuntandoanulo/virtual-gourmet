@@ -15,7 +15,7 @@ El proyecto Virtual Gourmet es una aplicacion Java, con componentes Web y de ser
 
 Los artículos publicados en el [blog](https://apuntandoanulo.com) abordan la definición del proyecto desde las primeras lineas de código y la configuración requerida, usted solo necesita tener:
 
-* Conocimientos básicos de Java 7
+* Conocimientos básicos de Java 8
 * Conocimientos básicos en bases de datos
 * Conocimientos en aplicaciones web
 
