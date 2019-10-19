@@ -5,5 +5,6 @@ public enum EnumIngrediente {
 	FRUTA,
 	GRANO,
 	PROTEINA,
-	CONDIMENTO
+	CONDIMENTO,
+	DESCONOCIDO
 }
