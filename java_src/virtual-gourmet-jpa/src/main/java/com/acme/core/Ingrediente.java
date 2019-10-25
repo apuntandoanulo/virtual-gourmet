@@ -1,4 +1,4 @@
-package com.acme.entities;
+package com.acme.core;
 
 public abstract class Ingrediente implements ElementoPreparacion {
 	private Double costo;
@@ -7,7 +7,8 @@ public abstract class Ingrediente implements ElementoPreparacion {
 	private EnumIngrediente tipo;
 	private Integer unidadMedida;
 	
-	public Ingrediente() {
+	public Ingrediente(String nombre) {
+		this.nombre = nombre;
 		this.costo = 0.0;
 		this.stock = 0;
 		this.tipo = EnumIngrediente.DESCONOCIDO;
@@ -19,7 +20,7 @@ public abstract class Ingrediente implements ElementoPreparacion {
 	}
 	
 	public void alistar() {
-		System.out.println("No hay que hacer nada");
+		System.out.println(this.nombre + ": No requiere alistamiento...");
 	}
 	
 	public Double getCosto() {

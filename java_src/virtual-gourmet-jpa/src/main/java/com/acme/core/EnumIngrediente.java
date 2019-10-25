@@ -1,4 +1,4 @@
-package com.acme.entities;
+package com.acme.core;
 
 public enum EnumIngrediente {
 	VEGETAL,
