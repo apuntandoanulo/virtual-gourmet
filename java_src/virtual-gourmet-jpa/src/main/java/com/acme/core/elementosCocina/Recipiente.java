@@ -8,7 +8,6 @@ public class Recipiente extends ElementoCocina {
 		super("Recipiente " + nombre);
 	}
 
-	@Override
 	public void alistar() {
 		System.out.println(getNombre() + ": Limpiar");
 	}

@@ -1,7 +1,7 @@
 package com.acme.entities.ejemplos.inner;
 
 public class Outer {
-
+		
 	private class Inner {
 		public Inner() {
 			System.out.println("Inner");
@@ -32,7 +32,7 @@ public class Outer {
 			}
 		};
 		obj2.metodo(); // Imprime metodoSub
-
+		
 		Super obj3 = new Super() {
 			public void metodo() {
 				super.metodo();
@@ -42,6 +42,7 @@ public class Outer {
 				System.out.println("metodo2");
 			}
 		};
+		
 		System.out.println(obj3.var); // Imprime var
 		System.out.println(obj3.varStatic); // Imprime varStatic
 		obj3.metodo(); // Imprime metodoSuper

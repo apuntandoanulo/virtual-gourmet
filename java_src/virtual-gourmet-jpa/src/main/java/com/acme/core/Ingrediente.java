@@ -63,5 +63,13 @@ public abstract class Ingrediente implements ElementoPreparacion {
 		this.unidadMedida = unidadMedida;
 	}
 	
+	@Override
+	public String toString() {
+		return getTipo() + " : " + getNombre();
+	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		return this.getNombre().equalsIgnoreCase( ((Ingrediente) obj).getNombre());
+	}
 }
