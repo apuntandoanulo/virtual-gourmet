@@ -1,23 +1,27 @@
 package com.acme.entities.ejemplos.inner;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import com.acme.core.ingredientes.Carne;
-import com.acme.core.ingredientes.Fruta;
-import com.acme.entities.ejemplos.excepciones.LimiteSuperadoException;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+
+import com.acme.core.ingredientes.Fruta;
+import com.acme.entities.ejemplos.excepciones.LimiteSuperadoException;
+import com.acme.entities.ejemplos.flujos.ManejoArchivo;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 public class VentanaPrueba extends JFrame {
 
@@ -110,9 +114,35 @@ public class VentanaPrueba extends JFrame {
 		fruta.setStock(cantidad);
 		
 		listaFrutas.add(fruta);
-		
+		/*
 		if(listaFrutas.size() > 3) {
 			throw new LimiteSuperadoException("Ya superamos el mensaje", 3);
+		}
+		*/
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		
+		if(listaFrutas.size() == 3) {
+			JsonArray listajson = new JsonArray();
+			
+			Iterator<Fruta> itFrutas = listaFrutas.iterator();
+			
+			while(itFrutas.hasNext()) {
+				Fruta fr = itFrutas.next();
+				
+				JsonObject js = new JsonObject();
+				js.addProperty("nombre", fr.getNombre());
+				js.addProperty("cantidad", fr.getStock());
+				listajson.add(js);
+			}
+			
+			String contenidoArchivo = gson.toJson(listajson);
+			
+			try {
+				ManejoArchivo.guardarArchivo("D:\\DELETE_ME\\virtual_gourmet.json", contenidoArchivo);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

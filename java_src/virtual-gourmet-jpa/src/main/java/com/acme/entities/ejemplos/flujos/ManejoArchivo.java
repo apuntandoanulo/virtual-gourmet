@@ -1,13 +1,16 @@
 package com.acme.entities.ejemplos.flujos;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class ManejoArchivo {
@@ -34,17 +37,28 @@ public class ManejoArchivo {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
 		String contenido = gson.toJson(lista);
+		String rutaArchivo = "D:\\DELETE_ME\\archivo.json";
 		
-		System.out.println(contenido);
+		//System.out.println(contenido);
 		
 		try {
-			guardarArchivo("D:\\DELETE_ME\\archivo.json", contenido);
+			//guardarArchivo(rutaArchivo, contenido);
+			String contenidoArchivo = leerArchivo(rutaArchivo);
+			
+			JsonArray nuevaLista = gson.fromJson(contenidoArchivo, JsonArray.class);
+			
+			for(JsonElement elemento : nuevaLista) {
+				JsonObject objeto = (JsonObject) elemento;
+				
+				System.out.println(objeto.get("nombre"));
+			}
+			
 		} catch (IOException e) {
 			System.out.println("Error guardando el archivo");
 		}
 	}
 
-	private static void guardarArchivo(String nombreArchivo, String contenido) throws IOException {
+	public static void guardarArchivo(String nombreArchivo, String contenido) throws IOException {
 		File archivo = new File(nombreArchivo);
 		
 		if(archivo.exists()) {
@@ -54,5 +68,25 @@ public class ManejoArchivo {
 		try(BufferedWriter writer = new BufferedWriter(new FileWriter(archivo))) {
 		    writer.write(contenido);
 		}
+	}
+	
+	public static String leerArchivo(String nombreArchivo) throws IOException {
+		StringBuilder builder = new StringBuilder();
+		File archivo = new File(nombreArchivo);
+		
+		if(archivo.exists()) {
+			try(BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+				String currentLine = reader.readLine();
+			    while (currentLine != null) {
+			        builder.append(currentLine);
+			        builder.append("\n");
+			        currentLine = reader.readLine();
+			    }
+			}
+		} else {
+			System.out.println("Al archivo no existe");
+		}
+		
+		return builder.toString();
 	}
 }
