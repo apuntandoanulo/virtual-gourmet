@@ -1,6 +1,6 @@
 package com.acme.core;
 
-public abstract class Ingrediente implements ElementoPreparacion {
+public abstract class Ingrediente implements ElementoPreparacion, Comparable<Ingrediente> {
 	private Double costo;
 	private String nombre;
 	private Integer stock;
@@ -62,14 +62,39 @@ public abstract class Ingrediente implements ElementoPreparacion {
 	public void setUnidadMedida(Integer unidadMedida) {
 		this.unidadMedida = unidadMedida;
 	}
-	
+
 	@Override
-	public String toString() {
-		return getTipo() + " : " + getNombre();
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		return this.getNombre().equalsIgnoreCase( ((Ingrediente) obj).getNombre());
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ingrediente other = (Ingrediente) obj;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equalsIgnoreCase(other.nombre))
+			return false;
+		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Ingrediente [costo=" + costo + ", nombre=" + nombre + "]";
+	}
+
+	public int compareTo(Ingrediente o) {
+		return getNombre().compareTo(o.getNombre());
+	}
+	
 }

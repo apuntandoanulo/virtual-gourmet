@@ -9,12 +9,14 @@ import javax.swing.border.EmptyBorder;
 
 import com.acme.core.ingredientes.Carne;
 import com.acme.core.ingredientes.Fruta;
+import com.acme.entities.ejemplos.excepciones.LimiteSuperadoException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class VentanaPrueba extends JFrame {
@@ -23,6 +25,8 @@ public class VentanaPrueba extends JFrame {
 	private JTextField textFieldNombre;
 	private JTextField textFieldCantidad;
 
+	private ArrayList<Fruta> listaFrutas;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -43,6 +47,8 @@ public class VentanaPrueba extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPrueba() {
+		listaFrutas = new ArrayList<Fruta>();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -64,14 +70,26 @@ public class VentanaPrueba extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String nombre = textFieldNombre.getText();
 				
-				Integer cantidad = Integer.parseInt(textFieldCantidad.getText());
-							
+				try {
+					Integer cantidad = Integer.parseInt(textFieldCantidad.getText());
+					
+					try {
+						agregarIngrediente(nombre, cantidad);
+					} catch (LimiteSuperadoException lex) {
+						JOptionPane.showMessageDialog(null, "La cantidad que superaron es " + lex.getCantidadSuperada());
+						
+						throw lex;
+					}
 				
-				agregarIngrediente(nombre, cantidad);
-				
-				textFieldNombre.setText("");
-				
-				JOptionPane.showMessageDialog(null, "OK, ingrediente agregado");
+					textFieldNombre.setText("");
+					textFieldCantidad.setText("");
+					
+					JOptionPane.showMessageDialog(null, "OK, ingrediente agregado");
+				} catch (NumberFormatException nfex) {
+					JOptionPane.showMessageDialog(null, "La cantidad es incorrecta");
+				} catch (LimiteSuperadoException lex) {
+					
+				}
 			}
 		});
 		btnAgregar.setBounds(153, 151, 97, 25);
@@ -87,17 +105,14 @@ public class VentanaPrueba extends JFrame {
 		textFieldCantidad.setColumns(10);
 	}
 	
-	private void agregarIngrediente(String nombre, Integer cantidad) {
+	private void agregarIngrediente(String nombre, Integer cantidad) throws LimiteSuperadoException {
 		Fruta fruta = new Fruta(nombre);
 		fruta.setStock(cantidad);
 		
-		StringBuilder infoFruta = new StringBuilder();
-		infoFruta.append("Nombre: ");
-		infoFruta.append(fruta.getNombre());
-		infoFruta.append("\t");
-		infoFruta.append("Cantidad: ");
-		infoFruta.append(fruta.getStock());
+		listaFrutas.add(fruta);
 		
-		System.out.println("\n\n" + infoFruta.toString().toUpperCase() + "\n\n");
+		if(listaFrutas.size() > 3) {
+			throw new LimiteSuperadoException("Ya superamos el mensaje", 3);
+		}
 	}
 }
