@@ -1,10 +1,24 @@
 package com.acme.core;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Ingrediente implements ElementoPreparacion, Comparable<Ingrediente> {
+	
 	private Double costo;
+	
+	@XmlAttribute
 	private String nombre;
+	
+	@XmlElement(name = "cantidad", required = true)
 	private Integer stock;
+	
+	@XmlAttribute(name = "tipo", required = true)
 	private EnumIngrediente tipo;
+	
 	private Integer unidadMedida;
 	
 	public Ingrediente(String nombre) {
