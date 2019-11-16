@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,10 +18,9 @@ import javax.swing.border.EmptyBorder;
 
 import com.acme.core.ingredientes.Fruta;
 import com.acme.entities.ejemplos.excepciones.LimiteSuperadoException;
-import com.acme.entities.ejemplos.flujos.ManejoArchivo;
+import com.acme.entities.ejemplos.flujos.UtilitarioJSON;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class VentanaPrueba extends JFrame {
@@ -123,7 +123,7 @@ public class VentanaPrueba extends JFrame {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
 		if(listaFrutas.size() == 3) {
-			JsonArray listajson = new JsonArray();
+			List<JsonObject> listajson = new ArrayList<JsonObject>();
 			
 			Iterator<Fruta> itFrutas = listaFrutas.iterator();
 			
@@ -139,7 +139,7 @@ public class VentanaPrueba extends JFrame {
 			String contenidoArchivo = gson.toJson(listajson);
 			
 			try {
-				ManejoArchivo.guardarArchivo("D:\\DELETE_ME\\virtual_gourmet.json", contenidoArchivo);
+				UtilitarioJSON.guardarArchivo("D:\\DELETE_ME\\virtual_gourmet.json", contenidoArchivo);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
