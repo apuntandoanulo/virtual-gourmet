@@ -22,13 +22,17 @@ import com.acme.entities.ejemplos.flujos.UtilitarioJSON;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import com.acme.core.EnumIngrediente;
 
 public class VentanaPrueba extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldNombre;
 	private JTextField textFieldCantidad;
-
+	private JComboBox comboBoxTipoIngrediente;
+	
 	private ArrayList<Fruta> listaFrutas;
 	
 	/**
@@ -77,8 +81,10 @@ public class VentanaPrueba extends JFrame {
 				try {
 					Integer cantidad = Integer.parseInt(textFieldCantidad.getText());
 					
+					EnumIngrediente tipo = (EnumIngrediente) comboBoxTipoIngrediente.getSelectedItem();
+					
 					try {
-						agregarIngrediente(nombre, cantidad);
+						agregarIngrediente(nombre, cantidad, tipo);
 					} catch (LimiteSuperadoException lex) {
 						JOptionPane.showMessageDialog(null, "La cantidad que superaron es " + lex.getCantidadSuperada());
 						
@@ -96,7 +102,7 @@ public class VentanaPrueba extends JFrame {
 				}
 			}
 		});
-		btnAgregar.setBounds(153, 151, 97, 25);
+		btnAgregar.setBounds(153, 215, 97, 25);
 		contentPane.add(btnAgregar);
 		
 		JLabel lblCantidad = new JLabel("Cantidad");
@@ -107,9 +113,18 @@ public class VentanaPrueba extends JFrame {
 		textFieldCantidad.setBounds(153, 90, 116, 22);
 		contentPane.add(textFieldCantidad);
 		textFieldCantidad.setColumns(10);
+		
+		comboBoxTipoIngrediente = new JComboBox();
+		comboBoxTipoIngrediente.setModel(new DefaultComboBoxModel(EnumIngrediente.values()));
+		comboBoxTipoIngrediente.setBounds(153, 151, 116, 21);
+		contentPane.add(comboBoxTipoIngrediente);
+		
+		JLabel lblTipo = new JLabel("Tipo");
+		lblTipo.setBounds(44, 155, 46, 13);
+		contentPane.add(lblTipo);
 	}
 	
-	private void agregarIngrediente(String nombre, Integer cantidad) throws LimiteSuperadoException {
+	private void agregarIngrediente(String nombre, Integer cantidad, EnumIngrediente tipo) throws LimiteSuperadoException {
 		Fruta fruta = new Fruta(nombre);
 		fruta.setStock(cantidad);
 		
