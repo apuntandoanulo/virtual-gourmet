@@ -11,16 +11,16 @@ import com.acme.core.ingredientes.Carne;
 
 @XmlRootElement(name = "inventario")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class InventarioCarnes {
+public class InventarioIngredientes {
 
 	@XmlElement(name = "carne", required = true)
 	private ArrayList<Carne> listaCarnes;
 	
-	public InventarioCarnes() {
+	public InventarioIngredientes() {
 		listaCarnes = new ArrayList<Carne>();
 	}
 	
-	public InventarioCarnes(ArrayList<Carne> listaCarnes) {
+	public InventarioIngredientes(ArrayList<Carne> listaCarnes) {
 		this.listaCarnes = listaCarnes;
 	}
 
