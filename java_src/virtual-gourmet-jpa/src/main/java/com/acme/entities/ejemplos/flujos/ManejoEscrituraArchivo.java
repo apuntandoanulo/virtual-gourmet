@@ -2,7 +2,7 @@ package com.acme.entities.ejemplos.flujos;
 
 import java.util.ArrayList;
 
-import com.acme.core.InventarioCarnes;
+import com.acme.core.InventarioIngredientes;
 import com.acme.core.ingredientes.Carne;
 
 public class ManejoEscrituraArchivo {
@@ -22,7 +22,7 @@ public class ManejoEscrituraArchivo {
 		carnes.add(pescado);
 		carnes.add(cerdo);
 		
-		InventarioCarnes inventario = new InventarioCarnes(carnes);
+		InventarioIngredientes inventario = new InventarioIngredientes(carnes);
 		
 		try {
 //			String rutaArchivo = "D:\\DELETE_ME\\virtual_gourmet.json";

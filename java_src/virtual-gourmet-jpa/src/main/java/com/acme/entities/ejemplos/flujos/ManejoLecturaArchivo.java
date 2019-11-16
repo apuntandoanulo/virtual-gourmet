@@ -1,6 +1,6 @@
 package com.acme.entities.ejemplos.flujos;
 
-import com.acme.core.InventarioCarnes;
+import com.acme.core.InventarioIngredientes;
 import com.acme.core.ingredientes.Carne;
 
 public class ManejoLecturaArchivo {
@@ -12,7 +12,7 @@ public class ManejoLecturaArchivo {
 //			InventarioCarnes inventario = (InventarioCarnes) UtilitarioJSON.leerArchivo(rutaArchivo, InventarioCarnes.class);
 			
 			String rutaArchivo = "D:\\DELETE_ME\\virtual_gourmet.xml";
-			InventarioCarnes inventario = (InventarioCarnes) UtilitarioXML.leerArchivo(rutaArchivo, InventarioCarnes.class);
+			InventarioIngredientes inventario = (InventarioIngredientes) UtilitarioXML.leerArchivo(rutaArchivo, InventarioIngredientes.class);
 			
 			for(Carne carne : inventario.getListaCarnes()) {
 				System.out.println(carne.getNombre() + ", " + carne.getStock());
