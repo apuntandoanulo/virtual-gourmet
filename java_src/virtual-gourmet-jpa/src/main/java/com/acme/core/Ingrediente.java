@@ -33,10 +33,6 @@ public abstract class Ingrediente implements ElementoPreparacion, Comparable<Ing
 		this.costo = costo;
 	}
 	
-	public void alistar() {
-		System.out.println(this.nombre + ": No requiere alistamiento...");
-	}
-	
 	public Double getCosto() {
 		return costo;
 	}

@@ -12,5 +12,7 @@ public interface ElementoPreparacion {
 	/**
 	 * Accion previa antes de utilizar el elemento de preparacion
 	 */
-	public void alistar();
+	public default void alistar() {
+		System.out.println("NO requiere alistamiento");
+	}
 }

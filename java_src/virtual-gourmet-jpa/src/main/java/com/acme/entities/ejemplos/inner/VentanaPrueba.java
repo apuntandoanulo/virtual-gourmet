@@ -4,11 +4,10 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,15 +15,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import com.acme.core.EnumIngrediente;
+import com.acme.core.InventarioIngredientes;
+import com.acme.core.ingredientes.Carne;
 import com.acme.core.ingredientes.Fruta;
+import com.acme.core.ingredientes.Vegetal;
 import com.acme.entities.ejemplos.excepciones.LimiteSuperadoException;
 import com.acme.entities.ejemplos.flujos.UtilitarioJSON;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import com.acme.core.EnumIngrediente;
 
 public class VentanaPrueba extends JFrame {
 
@@ -33,7 +32,7 @@ public class VentanaPrueba extends JFrame {
 	private JTextField textFieldCantidad;
 	private JComboBox comboBoxTipoIngrediente;
 	
-	private ArrayList<Fruta> listaFrutas;
+	private InventarioIngredientes inventario;
 	
 	/**
 	 * Launch the application.
@@ -55,7 +54,7 @@ public class VentanaPrueba extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPrueba() {
-		listaFrutas = new ArrayList<Fruta>();
+		inventario = new InventarioIngredientes();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -80,7 +79,6 @@ public class VentanaPrueba extends JFrame {
 				
 				try {
 					Integer cantidad = Integer.parseInt(textFieldCantidad.getText());
-					
 					EnumIngrediente tipo = (EnumIngrediente) comboBoxTipoIngrediente.getSelectedItem();
 					
 					try {
@@ -88,6 +86,7 @@ public class VentanaPrueba extends JFrame {
 					} catch (LimiteSuperadoException lex) {
 						JOptionPane.showMessageDialog(null, "La cantidad que superaron es " + lex.getCantidadSuperada());
 						
+						// Asi se propaga la excepcion
 						throw lex;
 					}
 				
@@ -125,36 +124,52 @@ public class VentanaPrueba extends JFrame {
 	}
 	
 	private void agregarIngrediente(String nombre, Integer cantidad, EnumIngrediente tipo) throws LimiteSuperadoException {
-		Fruta fruta = new Fruta(nombre);
-		fruta.setStock(cantidad);
 		
-		listaFrutas.add(fruta);
+		switch (tipo) {
+			case FRUTA :
+				Fruta fruta = new Fruta(nombre);
+				fruta.setStock(cantidad);
+				fruta.setTipo(tipo);
+				
+				inventario.getListaFrutas().add(fruta);
+				
+				break;
+				
+			case VEGETAL :
+				Vegetal veg = new Vegetal(nombre);
+				veg.setStock(cantidad);
+				
+				inventario.getListaVegetales().add(veg);
+				
+				break;
+				
+			case PROTEINA :
+				Carne cr = new Carne();
+				cr.setNombre(nombre);
+				cr.setStock(cantidad);
+				
+				inventario.agregarIngrediente(cr);
+				
+				break;
+				
+			default :
+				System.out.println("Ignorando el tipo de ingrediente...");
+				
+				break;
+		}
+		
 		/*
+		// Ejemplo de como se lanza una excepcion
 		if(listaFrutas.size() > 3) {
 			throw new LimiteSuperadoException("Ya superamos el mensaje", 3);
 		}
 		*/
 		
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		
-		if(listaFrutas.size() == 3) {
-			List<JsonObject> listajson = new ArrayList<JsonObject>();
-			
-			Iterator<Fruta> itFrutas = listaFrutas.iterator();
-			
-			while(itFrutas.hasNext()) {
-				Fruta fr = itFrutas.next();
-				
-				JsonObject js = new JsonObject();
-				js.addProperty("nombre", fr.getNombre());
-				js.addProperty("cantidad", fr.getStock());
-				listajson.add(js);
-			}
-			
-			String contenidoArchivo = gson.toJson(listajson);
+		if(inventario.obtenerCantidadElementos() == 6) {
+			System.out.println("Guardando la lista en el archivo...");
 			
 			try {
-				UtilitarioJSON.guardarArchivo("D:\\DELETE_ME\\virtual_gourmet.json", contenidoArchivo);
+				UtilitarioJSON.guardarArchivo("D:\\DELETE_ME\\virtual_gourmet_inventario.json", inventario);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

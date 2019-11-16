@@ -11,8 +11,4 @@ public class Condimento extends Ingrediente {
 		setStock(1);
 		setCosto(1.0);
 	}
-
-	public void alistar() {
-		System.out.println(getNombre() + ": Destapando el recipiente...");
-	}
 }

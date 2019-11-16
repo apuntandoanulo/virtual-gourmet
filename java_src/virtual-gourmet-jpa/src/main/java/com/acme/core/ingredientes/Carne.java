@@ -11,8 +11,11 @@ import com.acme.core.Ingrediente;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Carne extends Ingrediente {
 
+	private String selloCalidad;
+	
 	public Carne() {
 		super("Carne ???");
+		setTipo(EnumIngrediente.PROTEINA);
 	}
 	
 	public Carne(String nombre) {
