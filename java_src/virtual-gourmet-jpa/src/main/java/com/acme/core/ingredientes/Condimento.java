@@ -6,9 +6,7 @@ import com.acme.core.Ingrediente;
 public class Condimento extends Ingrediente {
 
 	public Condimento(String nombre) {
-		super("Condimento " + nombre);
+		super(nombre);
 		setTipo(EnumIngrediente.CONDIMENTO);
-		setStock(1);
-		setCosto(1.0);
 	}
 }

@@ -6,7 +6,7 @@ import com.acme.core.Ingrediente;
 public class Grano extends Ingrediente {
 
 	public Grano(String nombre) {
-		super("Grano " + nombre);
+		super(nombre);
 		setTipo(EnumIngrediente.GRANO);
 	}
 	

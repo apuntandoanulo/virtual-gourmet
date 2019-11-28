@@ -6,7 +6,7 @@ import com.acme.core.Ingrediente;
 public class Vegetal extends Ingrediente {
 
 	public Vegetal(String nombre) {
-		super("Vegetal " + nombre);
+		super(nombre);
 		setTipo(EnumIngrediente.VEGETAL);
 	}
 	

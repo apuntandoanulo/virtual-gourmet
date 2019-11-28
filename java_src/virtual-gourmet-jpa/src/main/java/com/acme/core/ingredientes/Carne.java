@@ -19,7 +19,7 @@ public class Carne extends Ingrediente {
 	}
 	
 	public Carne(String nombre) {
-		super("Carne " + nombre);
+		super(nombre);
 		setTipo(EnumIngrediente.PROTEINA);
 	}
 	
@@ -28,4 +28,11 @@ public class Carne extends Ingrediente {
 		System.out.println(getNombre() + ": Tasajeando...");
 	}
 
+	public String getSelloCalidad() {
+		return selloCalidad;
+	}
+	
+	public void setSelloCalidad(String selloCalidad) {
+		this.selloCalidad = selloCalidad;
+	}
 }
