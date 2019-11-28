@@ -1,55 +1,111 @@
 package com.acme.entities.ejemplos.jpa;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import com.acme.core.Ingrediente;
-import com.acme.core.ingredientes.Fruta;
-import com.acme.core.ingredientes.Vegetal;
 
 public class IngredienteJPAUtil {
 	
-	public static void main(String[] args) {
-		// Create an EntityManager
-		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("VirtualGourmet");
-        EntityManager em = emFactory.createEntityManager();
-        EntityTransaction transaction = em.getTransaction();
-         
-        // Begin the transaction
-        transaction.begin();
-
-        // Create a new Student object
-        Fruta fr = new Fruta("Banano");
-		fr.setId(1001L);
-        fr.setStock(500);
-		fr.setCosto(20.0);
-
-        // Save the student object
-        em.persist(fr);
-
-        Vegetal vg = new Vegetal("Brocoli");
-        vg.setId(1002L);
-        vg.setStock(10);
-        vg.setCosto(50.0);
-        
-        em.persist(vg);
-        
-        List<Ingrediente> ingredientes = em.createQuery("FROM Ingrediente", Ingrediente.class).getResultList();
-        
-        for(Ingrediente ing : ingredientes) {
-        	System.out.print(ing.getTipo());
-			System.out.print("\t" + ing.getNombre());
-			System.out.print("\t Cantidad: " + ing.getStock());
-			System.out.println("\t Precio: " + ing.getCosto());
-        }
-        
-        // Commit the transaction
-        transaction.commit();
-        
-        em.close();
+	private EntityManager em;
+	private EntityManagerFactory emFactory;
+	
+	public IngredienteJPAUtil() {
+		emFactory = Persistence.createEntityManagerFactory("VirtualGourmet");
+		
+		System.out.println("Esquema BD conectado y actualizado");
+	}
+	
+	public void abrirConexion() {
+		em = emFactory.createEntityManager();
+		
+		System.out.println("EntityManager conectado a BD");
+	}
+	
+	/**
+	 * Inserta un nuevo registro en la tabla INGREDIENTE
+	 * 
+	 * @param ingrediente
+	 * @throws SQLException
+	 */
+	public void insertar(Ingrediente ingrediente) {
+		//Obtienendo e iniciando la transaccion
+		em.getTransaction().begin();
+		
+		//Guardando el registro
+		em.persist(ingrediente);
+		
+		//Confirmacion de los cambios en la transaccion
+		em.getTransaction().commit();
+	}
+	
+	/**
+	 * Obtiene toda la lista de ingredientes ordena por nombre
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Ingrediente> obtenerListaIngredientes(String ordenadoPor) {
+		//Obtienendo e iniciando la transaccion
+		em.getTransaction().begin();
+		
+		try {
+			return em.createQuery("FROM Ingrediente ORDER BY " + ordenadoPor, Ingrediente.class).getResultList();
+		} finally {
+			//Confirmacion de los cambios en la transaccion
+			em.getTransaction().commit();
+		}
+	}
+	
+	/**
+	 * Actualiza los ingredientes que cumplan con los filtros enviados
+	 * 
+	 * @param sqlSet
+	 * @param filtros
+	 * @return
+	 * @throws SQLException
+	 */
+	public Ingrediente actualizarIngrediente(Ingrediente ingrediente) {
+		//Obtienendo e iniciando la transaccion
+		em.getTransaction().begin();
+		
+		try {
+			//Guardando el registro
+			return em.merge(ingrediente);
+		} finally {
+			//Confirmacion de los cambios en la transaccion
+			em.getTransaction().commit();
+		}
+	}
+	
+	/**
+	 * Elimina el ingrediente que coincide con el nombre
+	 * 
+	 * @param nombre
+	 * @return
+	 * @throws SQLException
+	 */
+	public void eliminarIngrediente(Ingrediente ingrediente) {
+		//Obtienendo e iniciando la transaccion
+		em.getTransaction().begin();
+		
+		//Guardando el registro
+		em.remove(ingrediente);
+		
+		//Confirmacion de los cambios en la transaccion
+		em.getTransaction().commit();
+	}
+	
+	/**
+	 * Cierra la conexion abierta a la BD
+	 * 
+	 */
+	public void cerrarConexion() { 
+		//Cerrando el entity manager
+		em.close();
 	}
 }
