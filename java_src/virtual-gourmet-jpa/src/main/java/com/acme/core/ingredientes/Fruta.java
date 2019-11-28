@@ -15,6 +15,12 @@ public class Fruta extends Ingrediente {
 		setTipo(EnumIngrediente.FRUTA);
 	}
 	
+	public Fruta(String nombre, Integer stock, Double costo) {
+		this(nombre);
+		setCosto(costo);
+		setStock(stock);
+	}
+
 	@Override
 	public void alistar() {
 		System.out.println(getNombre() + ": Lavar...");

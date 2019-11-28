@@ -13,17 +13,22 @@ public class IngredienteJPAUtil {
 	
 	private EntityManager em;
 	private EntityManagerFactory emFactory;
+	private String unidadPersistencia;
 	
 	public IngredienteJPAUtil(String unidadPersistencia) {
+		this.unidadPersistencia = unidadPersistencia;
+		
 		emFactory = Persistence.createEntityManagerFactory(unidadPersistencia);
 		
-		System.out.println("Esquema BD conectado y actualizado");
+		System.out.println("Esquema BD conectado y actualizado: " + unidadPersistencia);
+		System.out.println("------------------------");
 	}
 	
 	public void abrirConexion() {
 		em = emFactory.createEntityManager();
 		
-		System.out.println("EntityManager conectado a BD");
+		System.out.println("EntityManager conectado a BD: " +  unidadPersistencia);
+		System.out.println("------------------------");
 	}
 	
 	/**
@@ -107,5 +112,7 @@ public class IngredienteJPAUtil {
 	public void cerrarConexion() { 
 		//Cerrando el entity manager
 		em.close();
+		
+		System.out.println("EntityManager desconectado de BD: " +  unidadPersistencia);
 	}
 }
