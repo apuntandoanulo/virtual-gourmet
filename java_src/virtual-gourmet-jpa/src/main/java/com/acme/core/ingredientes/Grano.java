@@ -1,8 +1,11 @@
 package com.acme.core.ingredientes;
 
+import javax.persistence.Entity;
+
 import com.acme.core.EnumIngrediente;
 import com.acme.core.Ingrediente;
 
+@Entity
 public class Grano extends Ingrediente {
 
 	public Grano(String nombre) {
