@@ -9,13 +9,9 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         
         <properties>
-            <!-- The JDBC driver of your database -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-            <!-- The JDBC URL to the database instance -->
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/curso_java_bd?currentSchema=public" />
-            <!-- The database username -->
             <property name="javax.persistence.jdbc.user" value="curso_java" />
-            <!-- The database password -->
             <property name="javax.persistence.jdbc.password" value="curso_java" />
             
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />

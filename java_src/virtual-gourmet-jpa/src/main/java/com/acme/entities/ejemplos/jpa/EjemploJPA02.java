@@ -6,7 +6,7 @@ import com.acme.core.ingredientes.Fruta;
 public class EjemploJPA02 {
 
 	public static void main(String[] args) {
-		IngredienteJPAUtil jpaUtil = new IngredienteJPAUtil();
+		IngredienteJPAUtil jpaUtil = new IngredienteJPAUtil("VirtualGourmet");
 		jpaUtil.abrirConexion();
 		
 		//Se crea un nuevo objeto tipo FRUTA

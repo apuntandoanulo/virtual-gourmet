@@ -14,8 +14,8 @@ public class IngredienteJPAUtil {
 	private EntityManager em;
 	private EntityManagerFactory emFactory;
 	
-	public IngredienteJPAUtil() {
-		emFactory = Persistence.createEntityManagerFactory("VirtualGourmet");
+	public IngredienteJPAUtil(String unidadPersistencia) {
+		emFactory = Persistence.createEntityManagerFactory(unidadPersistencia);
 		
 		System.out.println("Esquema BD conectado y actualizado");
 	}
