@@ -7,6 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.acme.core.Ingrediente;
 
 public class IngredienteJPAUtil {
@@ -15,20 +18,20 @@ public class IngredienteJPAUtil {
 	private EntityManagerFactory emFactory;
 	private String unidadPersistencia;
 	
+    private static final Logger logger = LogManager.getLogger(IngredienteJPAUtil.class);
+	
 	public IngredienteJPAUtil(String unidadPersistencia) {
 		this.unidadPersistencia = unidadPersistencia;
 		
 		emFactory = Persistence.createEntityManagerFactory(unidadPersistencia);
 		
-		System.out.println("Esquema BD conectado y actualizado: " + unidadPersistencia);
-		System.out.println("------------------------");
+		logger.info("Esquema BD conectado y actualizado: {}", unidadPersistencia);
 	}
 	
 	public void abrirConexion() {
 		em = emFactory.createEntityManager();
 		
-		System.out.println("EntityManager conectado a BD: " +  unidadPersistencia);
-		System.out.println("------------------------");
+		logger.info("EntityManager conectado a BD: " +  unidadPersistencia);
 	}
 	
 	/**
@@ -38,6 +41,8 @@ public class IngredienteJPAUtil {
 	 * @throws SQLException
 	 */
 	public void insertar(Ingrediente ingrediente) {
+		logger.debug("Iniciando la insercion...");
+		
 		//Obtienendo e iniciando la transaccion
 		em.getTransaction().begin();
 		
@@ -46,6 +51,8 @@ public class IngredienteJPAUtil {
 		
 		//Confirmacion de los cambios en la transaccion
 		em.getTransaction().commit();
+		
+		logger.debug("Insercion confirmada: ID = {}", ingrediente.getId());
 	}
 	
 	/**
@@ -55,6 +62,8 @@ public class IngredienteJPAUtil {
 	 * @throws SQLException
 	 */
 	public List<Ingrediente> obtenerListaIngredientes(String ordenadoPor) {
+		logger.debug("Iniciando la consulta de ingredientes...");
+		
 		//Obtienendo e iniciando la transaccion
 		em.getTransaction().begin();
 		
@@ -63,6 +72,8 @@ public class IngredienteJPAUtil {
 		} finally {
 			//Confirmacion de los cambios en la transaccion
 			em.getTransaction().commit();
+			
+			logger.debug("Consulta de ingredientes efectuada correctamente...");
 		}
 	}
 	
@@ -75,6 +86,8 @@ public class IngredienteJPAUtil {
 	 * @throws SQLException
 	 */
 	public Ingrediente actualizarIngrediente(Ingrediente ingrediente) {
+		logger.debug("Iniciando la actualizacion del ingrediente con nombre = {}", ingrediente.getNombre());
+		
 		//Obtienendo e iniciando la transaccion
 		em.getTransaction().begin();
 		
@@ -84,6 +97,8 @@ public class IngredienteJPAUtil {
 		} finally {
 			//Confirmacion de los cambios en la transaccion
 			em.getTransaction().commit();
+			
+			logger.debug("Actualizacion confirmada para el ingrediente con nombre = {}", ingrediente.getNombre());
 		}
 	}
 	
@@ -95,6 +110,8 @@ public class IngredienteJPAUtil {
 	 * @throws SQLException
 	 */
 	public void eliminarIngrediente(Ingrediente ingrediente) {
+		logger.debug("Iniciando la eliminacion del ingrediente con nombre = {}", ingrediente.getNombre());
+		
 		//Obtienendo e iniciando la transaccion
 		em.getTransaction().begin();
 		
@@ -103,6 +120,8 @@ public class IngredienteJPAUtil {
 		
 		//Confirmacion de los cambios en la transaccion
 		em.getTransaction().commit();
+		
+		logger.debug("Eliminacion del ingrediente confirmada");
 	}
 	
 	/**
@@ -113,6 +132,6 @@ public class IngredienteJPAUtil {
 		//Cerrando el entity manager
 		em.close();
 		
-		System.out.println("EntityManager desconectado de BD: " +  unidadPersistencia);
+		logger.info("EntityManager desconectado de BD: " +  unidadPersistencia);
 	}
 }
