@@ -83,7 +83,7 @@ public class IngredienteJDBCUtil {
 		List<Ingrediente> resultado = new ArrayList<Ingrediente>();
 		
 		Statement st = conexion.createStatement();
-		ResultSet rs = st.executeQuery("SELECT nombre, cantidad, precio, tipo FROM " + NOMBRE_TABLA + " ORDER BY " + ordenadoPor);
+		ResultSet rs = st.executeQuery("SELECT id, nombre, cantidad, precio, tipo FROM " + NOMBRE_TABLA + " ORDER BY " + ordenadoPor);
 		
 		while(rs.next()) {
 			EnumIngrediente tipo = EnumIngrediente.valueOf(rs.getString("tipo"));
@@ -124,6 +124,7 @@ public class IngredienteJDBCUtil {
 			}
 			
 			if(ing != null) {
+				ing.setId(rs.getLong("id"));
 				ing.setStock(rs.getInt("cantidad"));
 				ing.setCosto(rs.getDouble("precio"));
 				ing.setTipo(tipo);

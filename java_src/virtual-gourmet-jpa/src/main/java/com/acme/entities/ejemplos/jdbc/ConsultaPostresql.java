@@ -20,7 +20,7 @@ public class ConsultaPostresql {
 		System.out.println("Conectado a BD");
 		
 		Statement st = conexion.createStatement();
-		ResultSet rs = st.executeQuery("SELECT nombre, cantidad, precio FROM INGREDIENTE ");
+		ResultSet rs = st.executeQuery("SELECT tipo, nombre, cantidad, precio FROM INGREDIENTE ");
 		
 		int numeroRegistros = 0;
 		
