@@ -1,12 +1,13 @@
 package com.acme.entities.ejemplos;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class EjemploDate {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		Date f1 = new Date();
 		
 		Calendar cl = Calendar.getInstance();
@@ -36,5 +37,6 @@ public class EjemploDate {
 		System.out.println(new SimpleDateFormat("yyyy/MM/dd").format(f1));
 		System.out.println(new SimpleDateFormat("dd-MM-yyyy").format(f1));
 		
+		System.out.println(new SimpleDateFormat("yyyy-MM-dd").parse("2015-05-10"));
 	}
 }

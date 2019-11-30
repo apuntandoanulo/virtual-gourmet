@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
+import com.acme.core.EnumIngrediente;
 import com.acme.core.Ingrediente;
 import com.acme.core.ingredientes.Vegetal;
 import com.acme.entities.ejemplos.jdbc.IngredienteJDBCUtil;
@@ -41,6 +44,7 @@ public class CRUDIngrediente {
 	private JButton btnEditar;
 	private JButton btnEliminar;
 	private JButton btnActualizar;
+	private JButton btnSimularIva;
 		
 	/**
 	 * Launch the application.
@@ -141,6 +145,34 @@ public class CRUDIngrediente {
 			}
 		});
 		panelBotones.add(btnActualizar);
+		
+		btnSimularIva = new JButton("Simular IVA");
+		btnSimularIva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Se obtienen los ingredientes actuales
+				List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+				
+				try {
+					ingredientes = jdbcUtil.obtenerListaIngredientes("nombre");
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+				
+				//Aplicar el iva del 16%
+				List<Ingrediente> ingsIva = ingredientes.stream()
+						.filter((ing) -> EnumIngrediente.FRUTA.equals(ing.getTipo()) || EnumIngrediente.VEGETAL.equals(ing.getTipo())) 
+						.map((ing) -> {
+							ing.setCosto(ing.getCosto() + ing.getCosto() * 0.16); 
+							return ing;
+						})
+						.filter((ing) -> ing.getCosto() > 1000)
+						.collect(Collectors.toList());
+				
+				//Se actualiza la tabla de ingredientes
+				modeloTablaIngredientes.actualizarListaDatos(ingsIva);
+			}
+		});
+		panelBotones.add(btnSimularIva);
 				
 		JScrollPane scrlPanelTabla = new JScrollPane();
 		frmAdministracionIngredientes.getContentPane().add(scrlPanelTabla, BorderLayout.CENTER);
